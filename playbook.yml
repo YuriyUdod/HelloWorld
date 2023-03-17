@@ -1,0 +1,38 @@
+- hosts: localhost
+  become: true
+
+  tasks:
+    # 
+    #- name: Update apt cache
+    #  apt:
+    #    update_cache: yes
+
+    - name: Install Apache, MySQL, PHP, and other dependencies
+      apt:
+        name:
+          - git
+          - apache2
+          - python3-pymysql
+          - mysql-client
+          - mysql-server
+          - php
+          - libapache2-mod-php
+          - php-mysql
+        state: present
+
+    - name: Start MySQL service
+      service:
+        name: mysql
+        state: started
+
+#    - name: Configure MySQL
+#      mysql_user:
+#        name: root
+#        password: ""
+#        host_all: true
+#        login_unix_socket: true
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
