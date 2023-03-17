@@ -59,7 +59,7 @@ resource "aws_instance" "lamp" {
   user_data              = <<EOF
 #!/bin/bash
 sudo apt-get update
-sudo apt-get install -y ansible
+sudo apt-get install -y ansible git
 EOF
 
 }
