@@ -1,6 +1,6 @@
 variable "ami" {
   type = string
-  default = "ami-09e1162c87f73958b")  #ubuntu 22.04, x86_64
+  default = "ami-09e1162c87f73958b")
 }
 
 variable "instance_type" {
