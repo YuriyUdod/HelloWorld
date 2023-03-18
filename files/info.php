@@ -60,6 +60,17 @@ class GeoPRequest {
 
 $userLocationData = new GeoPRequest();
 $userLocationData->getIp()->infoByIp();
+
+//function plural_form($number, $after) {
+//    if ($number % 10 == 1 && $number % 100 != 11) {
+//        return $number . ' раз';
+//    } elseif (in_array($number % 10, array(2, 3, 4)) && !in_array($number % 100, array(12, 13, 14))) {
+//        return $number . ' рази' . $after;
+//    } else {
+//        return $number . ' разів' . $after;
+//    }
+//}
+
 ?>
  
 <p>
@@ -77,7 +88,7 @@ $userLocationData->getIp()->infoByIp();
    </table>
    <br>
 
-   З адреси <?php echo $userLocationData->userIp; ?> цю сторінку відвідували <?php echo plural_form($kol,'.'); ?>
+   //З адреси <?php echo $userLocationData->userIp; ?> цю сторінку відвідували <?php echo plural_form($kol,'.'); ?>
 
     <img src="https://www.countryflags.io/<?php echo strtolower($userLocationData->countryCode); ?>/flat/64.png" alt="">
     <br>
