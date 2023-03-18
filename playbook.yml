@@ -71,3 +71,9 @@
       service:
         name: apache2
         state: restarted
+
+  handlers:
+    - name: Reload Apache
+      service:
+        name: apache2
+        state: reloaded
