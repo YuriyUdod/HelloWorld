@@ -1,5 +1,5 @@
 provider "aws" {
-  region = ${var.region}
+  region = "${var.region}"
   #access_key = ""
   #secret_key = ""
 }
@@ -56,26 +56,11 @@ resource "null_resource" "output_ip" {
   }
 }
 
-variable "ami" {
-  type = string
-  default = coalesce(var.ami, "ami-09e1162c87f73958b")  #ubuntu 22.04, x86_64
-}
-
-variable "instance_type" {
-  type = string
-  default = coalesce(var.instance_type, "t3.micro")
-}
-
-variable "region" {
-  type = string
-  default = coalesce(var.region, "eu-north-1")
-}
-
 #lamp - имя
 resource "aws_instance" "lamp" {
   # AMI - Amazon Machine Image
-  ami = ${var.ami}
-  instance_type = ${var.instance_type}
+  ami = "${var.ami}"
+  instance_type = "${var.instance_type}"
   vpc_security_group_ids = [aws_security_group.my_sg.id]
   associate_public_ip_address = true
   tags = {
