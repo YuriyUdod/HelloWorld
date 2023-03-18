@@ -111,7 +111,5 @@ $userLocationData->getIp()->infoByIp();
    </table>
    <br>
 
-<!--    З адреси <?php echo $userLocationData->userIp; ?> цю сторінку відвідували <?php echo plural_form($kol,'.'); ?> -->
-
-    <img src="http://www.rtdesigngroup.com/wp-content/uploads/2014/04/php-programming.jpg" alt="PHP Programming">
+   <img src="http://www.rtdesigngroup.com/wp-content/uploads/2014/04/php-programming.jpg" alt="PHP Programming">
 </p>
