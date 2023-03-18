@@ -1,10 +1,3 @@
-provider "aws" {
-  region = "eu-north-1"  #подсмотрел при создании через AWS
-  # получены и скопированы вручную
-  #access_key = ""
-  #secret_key = ""
-}
-
 resource "aws_security_group" "my_sg" {
   name = "My Security Group"
   description = "My Security Group"
@@ -57,11 +50,32 @@ resource "null_resource" "output_ip" {
   }
 }
 
+variable "ami" {
+  type = string
+  default = lookup(var.environment, "ami", "ami-09e1162c87f73958b")  #ubuntu 22.04, x86_64
+}
+
+variable "instance_type" {
+  type = string
+  default = lookup(var.environment, "instance_type", "t3.micro")
+}
+
+variable "region" {
+  type = string
+  default = lookup(var.environment, "region", "eu-north-1")
+}
+
+provider "aws" {
+  region = "${var.region}"
+  #access_key = ""
+  #secret_key = ""
+}
+
 #lamp - имя
 resource "aws_instance" "lamp" {
   # AMI - Amazon Machine Image
-  ami = "ami-09e1162c87f73958b" #ubuntu 22.04, x86_64
-  instance_type = "t3.micro"    # CPU, memory, price
+  ami = ${var.ami}
+  instance_type = ${var.instance_type}
   vpc_security_group_ids = [aws_security_group.my_sg.id]
   associate_public_ip_address = true
   tags = {
