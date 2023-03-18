@@ -111,7 +111,7 @@ $userLocationData->getIp()->infoByIp();
    </table>
    <br>
 
-   //З адреси <?php echo $userLocationData->userIp; ?> цю сторінку відвідували <?php echo plural_form($kol,'.'); ?>
+<!--    З адреси <?php echo $userLocationData->userIp; ?> цю сторінку відвідували <?php echo plural_form($kol,'.'); ?> -->
 
     <img src="https://www.countryflags.io/<?php echo strtolower($userLocationData->countryCode); ?>/flat/64.png" alt="">
     <br>
