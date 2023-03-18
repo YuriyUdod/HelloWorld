@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "${var.region}"
+  region = var.region
   #access_key = ""
   #secret_key = ""
 }
@@ -59,8 +59,8 @@ resource "null_resource" "output_ip" {
 #lamp - имя
 resource "aws_instance" "lamp" {
   # AMI - Amazon Machine Image
-  ami = "${var.ami}"
-  instance_type = "${var.instance_type}"
+  ami = var.ami
+  instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.my_sg.id]
   associate_public_ip_address = true
   tags = {
