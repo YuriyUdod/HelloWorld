@@ -1,6 +1,8 @@
 - hosts: localhost
   become: true
-
+  vars_files:
+    - vars/default.yml
+    
   tasks:
     # 
     #- name: Update apt cache
@@ -19,19 +21,52 @@
           - libapache2-mod-php
           - php-mysql
         state: present
+    
+    - name: host root
+      file:
+        path: "/var/www/{{ http_host }}"
+        state: directory
+        owner: "{{ app_user }}"
+        mode: '0755'
 
+    - name: virtualhost
+      template:
+        src: "files/apache.conf"
+        dest: "/etc/apache2/sites-available/{{ http_conf }}"
+      notify: Reload Apache
+
+    - name: разрешить сайт
+      shell: /usr/sbin/a2ensite {{ http_conf }}
+      notify: Reload Apache
+
+    - name: отключить страничку Apache по умолчанию
+      shell: /usr/sbin/a2dissite 000-default.conf
+      when: disable_default
+      notify: Reload Apache
+      
     - name: Start MySQL service
       service:
         name: mysql
         state: started
 
-#    - name: Configure MySQL
-#      mysql_user:
-#        name: root
-#        password: ""
-#        host_all: true
-#        login_unix_socket: true
-
+    - name: mySQL root password
+      mysql_user:
+        name: root
+        password: "{{ mysql_root_password }}"
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+    
+    - name: удалить тестовую базу
+      mysql_db:
+        name: test
+        state: absent
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+    
+    - name: поставить страничку свою
+      template:
+        src: "files/info.php.j2"
+        dest: "/var/www/{{ http_host }}/info.php"
+    
     - name: Restart Apache
       service:
         name: apache2
