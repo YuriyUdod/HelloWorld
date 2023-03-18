@@ -61,6 +61,29 @@ class GeoPRequest {
 $userLocationData = new GeoPRequest();
 $userLocationData->getIp()->infoByIp();
 
+
+//   $host = 'localhost';
+//   $db_name = 'ipcount';
+//   $user = '';
+//   $password = '';
+//   $ipa = $userLocationData->userIp;
+//   $kol = 0;
+
+//   $connection = mysqli_connect($host, $user, $password, $db_name);
+//   $query = "SELECT ipa, kol, dl  FROM iplist where ipa='$ipa'";
+//   $result = mysqli_query($connection, $query);
+
+//   if (mysqli_num_rows($result) > 0) 
+//   {
+//     mysqli_query($connection, "update iplist set kol=kol+1 where ipa='$ipa'");
+//     while($row = mysqli_fetch_array($result)){ $kol = $row['kol']+1;}
+//   } else 
+//   {
+//     mysqli_query($connection, "insert into iplist (ipa,kol) values ('$ipa',1)");
+//     $kol = 1;
+//   }
+//   mysqli_close($connection);
+
 //function plural_form($number, $after) {
 //    if ($number % 10 == 1 && $number % 100 != 11) {
 //        return $number . ' раз';
