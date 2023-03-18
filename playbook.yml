@@ -64,7 +64,7 @@
     
     - name: поставить страничку свою
       template:
-        src: "files/info.php.j2"
+        src: "files/info.php"
         dest: "/var/www/{{ http_host }}/info.php"
     
     - name: Restart Apache
