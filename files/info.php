@@ -113,7 +113,5 @@ $userLocationData->getIp()->infoByIp();
 
 <!--    З адреси <?php echo $userLocationData->userIp; ?> цю сторінку відвідували <?php echo plural_form($kol,'.'); ?> -->
 
-    <img src="https://www.countryflags.io/<?php echo strtolower($userLocationData->countryCode); ?>/flat/64.png" alt="">
-    <br>
     <img src="http://www.rtdesigngroup.com/wp-content/uploads/2014/04/php-programming.jpg" alt="PHP Programming">
 </p>
