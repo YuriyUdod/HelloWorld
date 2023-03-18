@@ -45,6 +45,18 @@ resource "aws_security_group" "my_sg" {
   }
 }
 
+provider "null" {}
+
+resource "null_resource" "output_ip" {
+  triggers = {
+    instance_id = aws_instance.lamp.id
+  }
+
+  provisioner "local-exec" {
+    command = "echo 'IP address: ${aws_instance.lamp.public_ip}'"
+  }
+}
+
 #lamp - имя
 resource "aws_instance" "lamp" {
   # AMI - Amazon Machine Image
@@ -60,6 +72,9 @@ resource "aws_instance" "lamp" {
 #!/bin/bash
 sudo apt-get update
 sudo apt-get install -y ansible git
+git clone https://github.com/YuriyUdod/HelloWorld.git
+cd HelloWorld
+ansible-playbook playbook.yml
 EOF
 
 }
