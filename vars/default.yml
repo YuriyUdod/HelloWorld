@@ -1,6 +1,6 @@
 ---
 mysql_root_password: "mysql_root_password"
-app_user: "yuriy"
+app_user: "ubuntu"
 http_host: "my_domain"
 http_conf: "my_domain.conf"
 http_port: "80"
