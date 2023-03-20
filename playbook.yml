@@ -61,7 +61,23 @@
         state: absent
         login_user: root
         login_password: "{{ mysql_root_password }}"
+        
+    - name: создать БД
+      mysql_db:
+        name: ipcount
+        state: present
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
     
+    - name: и таблицу в ней
+      mysql_query:
+        login_db: ipcount
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        query:
+          - create table iplist (id INT UNSIGNED NOT NULL AUTO_INCREMENT,ipa VARCHAR (50),kol int, PRIMARY KEY (id))
+        single_transaction: true  
+              
     - name: поставить страничку свою
       template:
         src: "files/info.php"
