@@ -12,3 +12,7 @@ variable "region" {
   type = string
   default = "eu-north-1"
 }
+variable "mysql_root_password" {
+  type = string
+  default = ""
+}
