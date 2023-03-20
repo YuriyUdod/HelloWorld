@@ -37,7 +37,7 @@ class GeoPRequest {
     }
 
    public function getIp() {
- 
+    
         if (getenv('HTTP_CLIENT_IP')) {
             $this->userIp = getenv('HTTP_CLIENT_IP');
         } else if (getenv('HTTP_X_FORWARDED_FOR')) {
@@ -61,38 +61,37 @@ class GeoPRequest {
 $userLocationData = new GeoPRequest();
 $userLocationData->getIp()->infoByIp();
 
+   $host = 'localhost';
+   $db_name = 'ipcount';
+   $user = 'root';
+   $password = '{{ mysql_root_password }}';
+   $ipa = $userLocationData->userIp;
+   $kol = 0;
 
-//   $host = 'localhost';
-//   $db_name = 'ipcount';
-//   $user = '';
-//   $password = '';
-//   $ipa = $userLocationData->userIp;
-//   $kol = 0;
+   $connection = mysqli_connect($host, $user, $password, $db_name);
+   $query = "SELECT ipa, kol  FROM iplist where ipa='$ipa'";
+   $result = mysqli_query($connection, $query);
 
-//   $connection = mysqli_connect($host, $user, $password, $db_name);
-//   $query = "SELECT ipa, kol, dl  FROM iplist where ipa='$ipa'";
-//   $result = mysqli_query($connection, $query);
+   if (mysqli_num_rows($result) > 0) 
+   {
+     mysqli_query($connection, "update iplist set kol=kol+1 where ipa='$ipa'");
+     while($row = mysqli_fetch_array($result)){ $kol = $row['kol']+1;}
+   } else 
+   {
+     mysqli_query($connection, "insert into iplist (ipa,kol) values ('$ipa',1)");
+     $kol = 1;
+   }
+   mysqli_close($connection);
 
-//   if (mysqli_num_rows($result) > 0) 
-//   {
-//     mysqli_query($connection, "update iplist set kol=kol+1 where ipa='$ipa'");
-//     while($row = mysqli_fetch_array($result)){ $kol = $row['kol']+1;}
-//   } else 
-//   {
-//     mysqli_query($connection, "insert into iplist (ipa,kol) values ('$ipa',1)");
-//     $kol = 1;
-//   }
-//   mysqli_close($connection);
-
-//function plural_form($number, $after) {
-//    if ($number % 10 == 1 && $number % 100 != 11) {
-//        return $number . ' раз';
-//    } elseif (in_array($number % 10, array(2, 3, 4)) && !in_array($number % 100, array(12, 13, 14))) {
-//        return $number . ' рази' . $after;
-//    } else {
-//        return $number . ' разів' . $after;
-//    }
-//}
+function plural_form($number, $after) {
+    if ($number % 10 == 1 && $number % 100 != 11) {
+        return $number . ' раз';
+    } elseif (in_array($number % 10, array(2, 3, 4)) && !in_array($number % 100, array(12, 13, 14))) {
+        return $number . ' рази' . $after;
+    } else {
+        return $number . ' разів' . $after;
+    }
+}
 
 ?>
  
@@ -111,5 +110,7 @@ $userLocationData->getIp()->infoByIp();
    </table>
    <br>
 
+   З адреси <?php echo $userLocationData->userIp; ?> цю сторінку відвідували <?php echo plural_form($kol,'.'); ?>
+   <br><br>
    <img src="http://www.rtdesigngroup.com/wp-content/uploads/2014/04/php-programming.jpg" alt="PHP Programming">
 </p>
