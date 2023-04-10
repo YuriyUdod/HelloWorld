@@ -1,5 +1,5 @@
 # LAMP
-This repository will create a virtual host on AWS (using **Terraform** and `main.tf`, `variables.tf`) that will install the LAMP environment (**L**inux, **A**pache, **M**ySQL and **P** HP) using **Ansible** with `playbook.yml`, `vars\default.yml`.
+This repository will create a virtual host on AWS (using **Terraform** and `main.tf`, `variables.tf`) that will install the LAMP environment (**L**inux, **A**pache, **M**ySQL and **P**HP) using **Ansible** with `playbook.yml`, `vars\default.yml`.
 Then a **MySQL** database is created on it and the `info.php` file is installed, which displays information about the user's IP address and statistics of visits from this address.
 
 ## Settings
