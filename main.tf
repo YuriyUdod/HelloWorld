@@ -7,35 +7,35 @@ provider "aws" {
 resource "aws_security_group" "my_sg" {
   name = "My Security Group"
   description = "My Security Group"
-  # разрешить ICMP
+  # enable ICMP
   ingress {
     from_port   = 8
     to_port     = -1
     protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  # разрешить входящий на 22 - SSH
+  # enable incoming 22 - SSH
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  # разрешить входящий на 80 - веб-сервер
+  # enable incoming 80 - web
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  # разрешить входящий на 443 - для https - пока без него
+  # enable incoming 443 - https
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-    # разрешить весь исходящий
+    # enable all out
   egress {
     from_port   = 0
     to_port     = 0
