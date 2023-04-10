@@ -35,11 +35,11 @@
         dest: "/etc/apache2/sites-available/{{ http_conf }}"
       notify: Reload Apache
 
-    - name: разрешить сайт
+    - name: enable site
       shell: /usr/sbin/a2ensite {{ http_conf }}
       notify: Reload Apache
 
-    - name: отключить страничку Apache по умолчанию
+    - name: remove Apache default page
       shell: /usr/sbin/a2dissite 000-default.conf
       when: disable_default
       notify: Reload Apache
@@ -55,21 +55,21 @@
         password: "{{ mysql_root_password }}"
         login_unix_socket: /var/run/mysqld/mysqld.sock
     
-    - name: удалить тестовую базу
+    - name: delete test DB
       mysql_db:
         name: test
         state: absent
         login_user: root
         login_password: "{{ mysql_root_password }}"
         
-    - name: создать БД
+    - name: create DB
       mysql_db:
         name: ipcount
         state: present
         login_user: root
         login_password: "{{ mysql_root_password }}"
     
-    - name: и таблицу в ней
+    - name: create table
       mysql_query:
         login_db: ipcount
         login_user: root
@@ -78,7 +78,7 @@
           - create table iplist (id INT UNSIGNED NOT NULL AUTO_INCREMENT,ipa VARCHAR (50),kol int, PRIMARY KEY (id))
         single_transaction: true  
               
-    - name: поставить страничку свою
+    - name: install own page
       template:
         src: "files/info.php"
         dest: "/var/www/{{ http_host }}/info.php"
